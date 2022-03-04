@@ -7,15 +7,20 @@ using Xunit;
 
 namespace MediatR.MinimalApi.Unit.Tests;
 
-public class UnitTest1
+public class DependencyInjectionTests
 {
     [Fact]
     public void Test_ConcreteBeforeOpenGeneric_ExpectToFail()
     {
         var builder = WebApplication.CreateBuilder();
 
-        builder.Services.AddTransient(typeof(IPipelineBehavior<GetMoneyRequest, GetMoneyResponse>), typeof(GetMoneyBehavior));
-        builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(AllRequestsBehavior<,>));
+        builder.Services.AddTransient(
+            typeof(IPipelineBehavior<GetMoneyRequest, GetMoneyResponse>), 
+            typeof(GetMoneyBehavior));
+
+        builder.Services.AddTransient(
+            typeof(IPipelineBehavior<,>), 
+            typeof(AllRequestsBehavior<,>));
 
         var app = builder.Build();
 
@@ -39,8 +44,13 @@ public class UnitTest1
     {
         var builder = WebApplication.CreateBuilder();
 
-        builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(AllRequestsBehavior<,>));
-        builder.Services.AddTransient(typeof(IPipelineBehavior<GetMoneyRequest, GetMoneyResponse>), typeof(GetMoneyBehavior));
+        builder.Services.AddTransient(
+            typeof(IPipelineBehavior<,>), 
+            typeof(AllRequestsBehavior<,>));
+
+        builder.Services.AddTransient(
+            typeof(IPipelineBehavior<GetMoneyRequest, GetMoneyResponse>), 
+            typeof(GetMoneyBehavior));
 
         var app = builder.Build();
 
