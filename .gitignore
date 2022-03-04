@@ -1,4 +1,5 @@
 # User specific configuration files and directories
+.idea/
 .vs
 .vscode
 *.rsuser
